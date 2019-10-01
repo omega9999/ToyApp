@@ -1,9 +1,9 @@
-# PetsApp
-Esercizi con app EarthQuakeApp
-https://classroom.udacity.com/courses/ud845
+# ToyApp
+Esercizi con app ToyApp
+https://classroom.udacity.com/courses/ud851
 
 Rif GIT:
-https://github.com/udacity/ud845-Pets
+https://github.com/udacity/ud851-Exercises
 
 Casi risolti:
     
@@ -13,8 +13,6 @@ TODO:
 1) sostituire i vari layout con le ConstraintLayout (vedere https://github.com/chrisbanes/cheesesquare)
 
 Altri link utili:
-Datatypes In SQLite: https://www.sqlite.org/datatype3.html
-Data and file storage: https://developer.android.com/guide/topics/data/data-storage.html
 
 Progetti come esercizio:
 
