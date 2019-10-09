@@ -1,12 +1,16 @@
 package com.example.android.toyapp.utilities;
 
+import android.net.Uri;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
 public class NetworkUtils {
+
     final static String GITHUB_BASE_URL =
             "https://api.github.com/search/repositories";
 
@@ -20,13 +24,26 @@ public class NetworkUtils {
     final static String sortBy = "stars";
 
     /**
-     * Builds the URL used to query Github.
+     * Builds the URL used to query GitHub.
      *
      * @param githubSearchQuery The keyword that will be queried for.
-     * @return The URL to use to query the weather server.
+     * @return The URL to use to query the GitHub server.
      */
     public static URL buildUrl(String githubSearchQuery) {
-        return null;
+        Uri builtUri = Uri.parse(GITHUB_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_QUERY, githubSearchQuery)
+                .appendQueryParameter(PARAM_SORT, sortBy)
+                .build();
+
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
     }
 
     /**
@@ -54,4 +71,5 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
+
 }

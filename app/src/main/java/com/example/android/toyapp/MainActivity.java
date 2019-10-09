@@ -1,5 +1,7 @@
 package com.example.android.toyapp;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,8 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.android.toyapp.utilities.NetworkUtils;
 
+import java.net.URL;
+
+public class MainActivity extends AppCompatActivity {
     private EditText mSearchBoxEditText;
 
     private TextView mUrlDisplayTextView;
@@ -28,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         mSearchResultsTextView = findViewById(R.id.tv_github_search_results_json);
     }
 
+    // TODO (2) Create a method called makeGithubSearchQuery
+    // TODO (3) Within this method, build the URL with the text from the EditText and set the built URL to the TextView
+
+    private void makeGithubSearchQuery(){
+        String githubQuery = mSearchBoxEditText.getText().toString();
+        URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
+        mUrlDisplayTextView.setText(githubSearchUrl.toString());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -36,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search){
-            Toast.makeText(this, "Search selected",Toast.LENGTH_SHORT).show();
+        int itemThatWasClickedId = item.getItemId();
+        if (itemThatWasClickedId == R.id.action_search) {
+            makeGithubSearchQuery();
             return true;
         }
         return super.onOptionsItemSelected(item);
