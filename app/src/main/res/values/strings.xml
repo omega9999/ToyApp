@@ -15,4 +15,5 @@
   -->
 <resources>
     <string name="app_name">Toy App</string>
+    <string name="search">Search</string>
 </resources>

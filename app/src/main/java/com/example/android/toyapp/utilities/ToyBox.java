@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.toyapp;
+package com.example.android.toyapp.utilities;
 
 public final class ToyBox {
 
