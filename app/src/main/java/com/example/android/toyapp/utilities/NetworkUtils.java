@@ -35,7 +35,6 @@ public class NetworkUtils {
                 .appendQueryParameter(PARAM_SORT, sortBy)
                 .build();
 
-
         URL url = null;
         try {
             url = new URL(builtUri.toString());
@@ -71,5 +70,4 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
-
 }
