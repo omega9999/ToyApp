@@ -1,6 +1,9 @@
 package com.example.android.toyapp.recyclerview;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.toyapp.R;
 
-public class RecyclerViewLayoutActivity extends AppCompatActivity {
+public class RecyclerViewLayoutActivity extends AppCompatActivity implements GreenAdapter.ListItemClickListener {
     private static final int NUM_LIST_ITEMS = 100;
 
     /*
@@ -17,6 +20,7 @@ public class RecyclerViewLayoutActivity extends AppCompatActivity {
      */
     private GreenAdapter mAdapter;
     private RecyclerView mNumbersList;
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +56,53 @@ public class RecyclerViewLayoutActivity extends AppCompatActivity {
         /*
          * The GreenAdapter is responsible for displaying each item in the list.
          */
-        mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
+        mAdapter = new GreenAdapter(NUM_LIST_ITEMS, this);
 
         mNumbersList.setAdapter(mAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            /*
+             * When you click the reset menu item, we want to start all over
+             * and display the pretty gradient again. There are a few similar
+             * ways of doing this, with this one being the simplest of those
+             * ways. (in our humble opinion)
+             */
+            case R.id.action_refresh:
+                mAdapter = new GreenAdapter(NUM_LIST_ITEMS, this);
+                mNumbersList.setAdapter(mAdapter);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListItemClick(int index) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+
+        /*
+         * Create a Toast and store it in our Toast field.
+         * The Toast that shows up will have a message similar to the following:
+         *
+         *                     Item #42 clicked.
+         */
+        String toastMessage = "Item #" + index + " clicked.";
+        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+
+        mToast.show();
     }
 }

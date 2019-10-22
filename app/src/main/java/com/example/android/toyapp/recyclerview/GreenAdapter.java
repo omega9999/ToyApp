@@ -18,7 +18,14 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
     private static final String TAG = GreenAdapter.class.getSimpleName();
 
     private int mNumberItems;
+    private ListItemClickListener mOnClickListener;
+    private int viewHolderCount;
 
+
+    // TODO (4) Add a ListItemClickListener as a parameter to the constructor and store it in mOnClickListener
+    interface ListItemClickListener{
+        void onListItemClick(int index);
+    }
 
     @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -30,6 +37,14 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
         NumberViewHolder viewHolder = new NumberViewHolder(view);
 
+        viewHolder.viewHolderIndex.setText("ViewHolder index: " + viewHolderCount);
+
+        int backgroundColorForViewHolder = ColorUtils
+                .getViewHolderBackgroundColorFromInstance(context, viewHolderCount);
+        viewHolder.itemView.setBackgroundColor(backgroundColorForViewHolder);
+
+        viewHolderCount++;
+        Log.d(TAG, "onCreateViewHolder: number of ViewHolders created: "                + viewHolderCount);
         return viewHolder;
     }
 
@@ -40,8 +55,10 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
      *
      * @param numberOfItems Number of items to display in list
      */
-    public GreenAdapter(int numberOfItems) {
+    public GreenAdapter(int numberOfItems, ListItemClickListener listItemClickListener) {
         this.mNumberItems = numberOfItems;
+        this.mOnClickListener = listItemClickListener;
+        viewHolderCount = 0;
     }
 
     /**
@@ -85,18 +102,44 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
         return mNumberItems;
     }
 
-    class NumberViewHolder extends RecyclerView.ViewHolder {
-        NumberViewHolder(@NonNull View itemView) {
+    class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        // Will display the position in the list, ie 0 through getItemCount() - 1
+        TextView listItemNumberView;
+        // Will display which ViewHolder is displaying this data
+        TextView viewHolderIndex;
+
+        /**
+         * Constructor for our ViewHolder. Within this constructor, we get a reference to our
+         * TextViews and set an onClickListener to listen for clicks. Those will be handled in the
+         * onClick method below.
+         * @param itemView The View that you inflated in
+         *                 {@link GreenAdapter#onCreateViewHolder(ViewGroup, int)}
+         */
+        public NumberViewHolder(View itemView) {
             super(itemView);
-            this.listItemNumberView = itemView.findViewById(R.id.tv_item_number);
+
+            listItemNumberView = itemView.findViewById(R.id.tv_item_number);
+            viewHolderIndex = itemView.findViewById(R.id.tv_view_holder_instance);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
+        }
 
+        /**
+         * A method we wrote for convenience. This method will take an integer as input and
+         * use that integer to display the appropriate text within a list item.
+         * @param listIndex Position of the item in the list
+         */
         void bind(int listIndex) {
-            this.listItemNumberView.setText(String.valueOf(listIndex));
+            listItemNumberView.setText(String.valueOf(listIndex));
         }
 
-        private TextView listItemNumberView;
+        // TODO (6) Override onClick, passing the clicked item's position (getAdapterPosition()) to mOnClickListener via its onListItemClick method
     }
 
 

@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     public class GithubQueryTask extends AsyncTask<URL, Void, String> {
 
-        // COMPLETED (26) Override onPreExecute to set the loading indicator to visible
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -107,14 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String githubSearchResults) {
-            // COMPLETED (27) As soon as the loading is complete, hide the loading indicator
             mLoadingIndicator.setVisibility(View.INVISIBLE);
             if (githubSearchResults != null && !githubSearchResults.equals("")) {
-                // COMPLETED (17) Call showJsonDataView if we have valid, non-null results
                 showJsonDataView();
                 mSearchResultsTextView.setText(githubSearchResults);
             } else {
-                // COMPLETED (16) Call showErrorMessage if the result is null in onPostExecute
                 showErrorMessage();
             }
         }
