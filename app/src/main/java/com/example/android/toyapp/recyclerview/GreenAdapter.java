@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
@@ -22,8 +21,7 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
     private int viewHolderCount;
 
 
-    // TODO (4) Add a ListItemClickListener as a parameter to the constructor and store it in mOnClickListener
-    interface ListItemClickListener{
+    interface ListItemClickListener {
         void onListItemClick(int index);
     }
 
@@ -44,7 +42,7 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
         viewHolder.itemView.setBackgroundColor(backgroundColorForViewHolder);
 
         viewHolderCount++;
-        Log.d(TAG, "onCreateViewHolder: number of ViewHolders created: "                + viewHolderCount);
+        Log.d(TAG, "onCreateViewHolder: number of ViewHolders created: " + viewHolderCount);
         return viewHolder;
     }
 
@@ -113,6 +111,7 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
          * Constructor for our ViewHolder. Within this constructor, we get a reference to our
          * TextViews and set an onClickListener to listen for clicks. Those will be handled in the
          * onClick method below.
+         *
          * @param itemView The View that you inflated in
          *                 {@link GreenAdapter#onCreateViewHolder(ViewGroup, int)}
          */
@@ -133,6 +132,7 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
         /**
          * A method we wrote for convenience. This method will take an integer as input and
          * use that integer to display the appropriate text within a list item.
+         *
          * @param listIndex Position of the item in the list
          */
         void bind(int listIndex) {

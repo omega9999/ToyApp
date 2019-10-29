@@ -16,7 +16,7 @@ import com.example.android.toyapp.utilities.NetworkUtils;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class UrlWebActivity extends AppCompatActivity {
 
     private EditText mSearchBoxEditText;
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.url_web_activity);
 
         mSearchBoxEditText = findViewById(R.id.et_search_box);
 
