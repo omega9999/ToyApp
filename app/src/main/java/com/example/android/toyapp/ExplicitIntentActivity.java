@@ -59,13 +59,13 @@ public class ExplicitIntentActivity extends AppCompatActivity {
                  */
                 final Intent startChildActivityIntent = new Intent(context, destinationActivity);
 
-                // TODO (2) Use the putExtra method to put the String from the EditText in the Intent
                 startChildActivityIntent.putExtra(ChildActivity.EXTRA_TEXT, str);
 
                 /*
                  * Once the Intent has been created, we can use Activity's method, "startActivity"
                  * to start the ChildActivity.
                  */
+
                 startActivity(startChildActivityIntent);
             }
         });

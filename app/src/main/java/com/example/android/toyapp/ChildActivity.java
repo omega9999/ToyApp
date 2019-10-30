@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class ChildActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TEXT = "EXTRA_TEXT";
+    public static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
 
     private TextView mTextView;
     @Override
