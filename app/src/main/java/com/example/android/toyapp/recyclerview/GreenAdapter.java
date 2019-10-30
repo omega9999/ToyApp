@@ -139,7 +139,6 @@ public class GreenAdapter extends Adapter<GreenAdapter.NumberViewHolder> {
             listItemNumberView.setText(String.valueOf(listIndex));
         }
 
-        // TODO (6) Override onClick, passing the clicked item's position (getAdapterPosition()) to mOnClickListener via its onListItemClick method
     }
 
 
