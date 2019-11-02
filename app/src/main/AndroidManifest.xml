@@ -10,25 +10,32 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChildActivity"
-            android:parentActivityName=".ExplicitIntentActivity"
-            >
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ExplicitIntentActivity"/>
-        </activity>
-        <activity android:name=".ExplicitIntentActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UrlWebActivity">
+        <activity
+            android:name=".activity.ChildActivity"
+            android:parentActivityName=".activity.ExplicitIntentActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ExplicitIntentActivity" />
+        </activity>
+        <activity android:name=".activity.ExplicitIntentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".recyclerview.RecyclerViewLayoutActivity">
+        <activity android:name=".activity.UrlWebActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.recyclerview.RecyclerViewLayoutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
