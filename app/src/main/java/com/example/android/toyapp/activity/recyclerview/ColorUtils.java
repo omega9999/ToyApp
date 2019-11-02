@@ -1,4 +1,4 @@
-package com.example.android.toyapp.recyclerview;
+package com.example.android.toyapp.activity.recyclerview;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,13 +12,13 @@ public class ColorUtils {
     /**
      * This method returns the appropriate shade of green to form the gradient
      * seen in the list, based off of the order in which the
-     * {@link com.example.android.toyapp.recyclerview.GreenAdapter.NumberViewHolder}
+     * {@link com.example.android.toyapp.activity.recyclerview.GreenAdapter.NumberViewHolder}
      * instance was created.
      *
      * This method is used to show how ViewHolders are recycled in a RecyclerView.
      * At first, the colors will form a nice, consistent gradient. As the
      * RecyclerView is scrolled, the
-     * {@link com.example.android.toyapp.recyclerview.GreenAdapter.NumberViewHolder}'s will be
+     * {@link com.example.android.toyapp.activity.recyclerview.GreenAdapter.NumberViewHolder}'s will be
      * recycled and the list will no longer appear as a consistent gradient.
      *
      * @param context     Context for getting colors

@@ -1,4 +1,4 @@
-package com.example.android.toyapp;
+package com.example.android.toyapp.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android.toyapp.R;
 import com.example.android.toyapp.utilities.NetworkUtils;
 
 import java.io.IOException;

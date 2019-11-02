@@ -1,10 +1,12 @@
-package com.example.android.toyapp;
+package com.example.android.toyapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.android.toyapp.R;
 
 public class ChildActivity extends AppCompatActivity {
 

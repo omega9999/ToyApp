@@ -1,4 +1,4 @@
-package com.example.android.toyapp.recyclerview;
+package com.example.android.toyapp.activity.recyclerview;
 
 import android.content.Context;
 import android.util.Log;
