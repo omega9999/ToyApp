@@ -1,13 +1,12 @@
 package com.example.android.toyapp;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 
 import com.example.android.toyapp.activity.ExplicitIntentActivity;
+import com.example.android.toyapp.activity.ImplicitIntentActivity;
 import com.example.android.toyapp.activity.UrlWebActivity;
 import com.example.android.toyapp.activity.recyclerview.RecyclerViewLayoutActivity;
 
@@ -23,6 +22,7 @@ public class ExerciseUtils {
         activities.add(ExplicitIntentActivity.class);
         activities.add(RecyclerViewLayoutActivity.class);
         activities.add(UrlWebActivity.class);
+        activities.add(ImplicitIntentActivity.class);
 
         return activities;
     }
