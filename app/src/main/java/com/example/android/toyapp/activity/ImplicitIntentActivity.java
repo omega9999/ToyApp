@@ -38,7 +38,14 @@ public class ImplicitIntentActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void onClickOpenAddressButton(View v) {
-        Toast.makeText(this, "TODO: Open a map when this button is clicked", Toast.LENGTH_SHORT).show();
+        final String addressString = "1600 Amphitheatre Parkway, CA";
+        final Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo")
+                .path("0,0")
+                .appendQueryParameter("q", addressString);
+        final Uri addressUri = builder.build();
+        showMap(addressUri);
+        Toast.makeText(this, "Open a map when this button is clicked", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -74,5 +81,14 @@ public class ImplicitIntentActivity extends AppCompatActivity {
         }
 
     }
+
+    private void showMap(@NonNull final Uri geoLocation){
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
 
 }
