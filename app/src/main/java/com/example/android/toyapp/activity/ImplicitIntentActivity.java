@@ -2,6 +2,7 @@ package com.example.android.toyapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -55,7 +56,9 @@ public class ImplicitIntentActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void onClickShareTextButton(View v) {
-        Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
+        final String textThatYouWantToShare = "Sharing the coolest thing I've learned so far. You should check out Udacity and Google's Android Nanodegree!";
+        shareText(textThatYouWantToShare);
+        Toast.makeText(this, "Share text when this is clicked", Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -90,5 +93,13 @@ public class ImplicitIntentActivity extends AppCompatActivity {
         }
     }
 
-
+    private void shareText(@NonNull final String textToShare){
+        final String mimeType = "text/plain";
+        final String title = "Selection";
+        ShareCompat.IntentBuilder.from(this)
+                .setType(mimeType)
+                .setChooserTitle(title)
+                .setText(textToShare)
+                .startChooser();
+    }
 }
