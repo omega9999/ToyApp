@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.android.toyapp.activity.ExplicitIntentActivity;
 import com.example.android.toyapp.activity.ImplicitIntentActivity;
+import com.example.android.toyapp.activity.LifecycleActivity;
 import com.example.android.toyapp.activity.UrlWebActivity;
 import com.example.android.toyapp.activity.recyclerview.RecyclerViewLayoutActivity;
 
@@ -23,6 +24,7 @@ public class ExerciseUtils {
         activities.add(RecyclerViewLayoutActivity.class);
         activities.add(UrlWebActivity.class);
         activities.add(ImplicitIntentActivity.class);
+        activities.add(LifecycleActivity.class);
 
         return activities;
     }
