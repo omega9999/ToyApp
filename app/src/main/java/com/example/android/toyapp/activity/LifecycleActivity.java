@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.android.toyapp.MainActivity;
 import com.example.android.toyapp.R;
 
+import java.util.ArrayList;
+
 public class LifecycleActivity extends AppCompatActivity {
 
     private static final String LIFECYCLE_CALLBACKS_TEXT_KEY = "lifecycle_callbacks_text_key";
@@ -20,6 +22,8 @@ public class LifecycleActivity extends AppCompatActivity {
      * being posted.
      */
     private static final String TAG = LifecycleActivity.class.getSimpleName();
+
+    private static final ArrayList<String> mLifecycleCallbacks = new ArrayList<>();
 
     /* Constant values for the names of each respective lifecycle callback */
     private static final String ON_CREATE = "onCreate";
@@ -58,6 +62,12 @@ public class LifecycleActivity extends AppCompatActivity {
                 mLifecycleDisplay.setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_TEXT_KEY));
             }
         }
+
+        for (int i = mLifecycleCallbacks.size() - 1; i >= 0; i--) {
+            mLifecycleDisplay.append(mLifecycleCallbacks.get(i) + "\n");
+        }
+
+        mLifecycleCallbacks.clear();
 
         logAndAppend(ON_CREATE);
     }
@@ -113,6 +123,7 @@ public class LifecycleActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        mLifecycleCallbacks.add(0, ON_STOP);
         logAndAppend(ON_STOP);
     }
 
@@ -136,6 +147,7 @@ public class LifecycleActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mLifecycleCallbacks.add(0, ON_DESTROY);
         logAndAppend(ON_DESTROY);
     }
 
