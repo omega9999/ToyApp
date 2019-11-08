@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.toyapp.R;
@@ -18,6 +19,9 @@ import java.io.IOException;
 import java.net.URL;
 
 public class UrlWebActivity extends AppCompatActivity {
+
+    private static final String QUERY_URL_KEY = "query_url_key";
+    private static final String SEARCH_RAW_JSON_KEY = "search_raw_json_key";
 
     private EditText mSearchBoxEditText;
 
@@ -42,6 +46,11 @@ public class UrlWebActivity extends AppCompatActivity {
         mErrorMessageDisplay = findViewById(R.id.tv_error_message_display);
 
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
+
+        if (savedInstanceState != null){
+            mUrlDisplayTextView.setText(savedInstanceState.getString(QUERY_URL_KEY));
+            mSearchResultsTextView.setText(savedInstanceState.getString(SEARCH_RAW_JSON_KEY));
+        }
     }
 
     /**
@@ -131,5 +140,12 @@ public class UrlWebActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(QUERY_URL_KEY,mUrlDisplayTextView.getText().toString());
+        outState.putString(SEARCH_RAW_JSON_KEY,mSearchResultsTextView.getText().toString());
     }
 }
