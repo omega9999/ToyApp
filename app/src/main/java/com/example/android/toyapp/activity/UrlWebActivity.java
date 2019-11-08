@@ -118,14 +118,21 @@ public class UrlWebActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public Loader<String> onCreateLoader(final int id, @Nullable final Bundle args) {
         return new AsyncTaskLoader<String>(this) {
+            private String mGithubJson;
+
             @Override
             protected void onStartLoading() {
                 super.onStartLoading();
                 if (args == null || args.isEmpty()) {
                     return;
                 }
-                mLoadingIndicator.setVisibility(View.VISIBLE);
-                forceLoad();
+                if (mGithubJson != null){
+                    deliverResult(mGithubJson);
+                }
+                else{
+                    mLoadingIndicator.setVisibility(View.VISIBLE);
+                    forceLoad();
+                }
             }
 
             @Nullable
@@ -136,7 +143,7 @@ public class UrlWebActivity extends AppCompatActivity implements LoaderManager.L
                     if (TextUtils.isEmpty(searchUrl)) {
                         return null;
                     }
-                    String githubSearchResults = null;
+                    String githubSearchResults;
                     try {
                         githubSearchResults = NetworkUtils.getResponseFromHttpUrl(new URL(searchUrl));
                     } catch (IOException e) {
@@ -146,6 +153,12 @@ public class UrlWebActivity extends AppCompatActivity implements LoaderManager.L
                     return githubSearchResults;
                 }
                 return null;
+            }
+
+            @Override
+            public void deliverResult(@Nullable final String data) {
+                mGithubJson = data;
+                super.deliverResult(data);
             }
         };
     }
