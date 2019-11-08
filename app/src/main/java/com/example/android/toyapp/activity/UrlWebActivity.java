@@ -20,8 +20,8 @@ import java.net.URL;
 
 public class UrlWebActivity extends AppCompatActivity {
 
-    private static final String QUERY_URL_KEY = "query_url_key";
-    private static final String SEARCH_RAW_JSON_KEY = "search_raw_json_key";
+    private static final String SEARCH_QUERY_URL_EXTRA = "query";
+    private static final String SEARCH_RESULTS_RAW_JSON = "results";
 
     private EditText mSearchBoxEditText;
 
@@ -48,8 +48,8 @@ public class UrlWebActivity extends AppCompatActivity {
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         if (savedInstanceState != null){
-            mUrlDisplayTextView.setText(savedInstanceState.getString(QUERY_URL_KEY));
-            mSearchResultsTextView.setText(savedInstanceState.getString(SEARCH_RAW_JSON_KEY));
+            mUrlDisplayTextView.setText(savedInstanceState.getString(SEARCH_QUERY_URL_EXTRA));
+            mSearchResultsTextView.setText(savedInstanceState.getString(SEARCH_RESULTS_RAW_JSON));
         }
     }
 
@@ -145,7 +145,7 @@ public class UrlWebActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(QUERY_URL_KEY,mUrlDisplayTextView.getText().toString());
-        outState.putString(SEARCH_RAW_JSON_KEY,mSearchResultsTextView.getText().toString());
+        outState.putString(SEARCH_QUERY_URL_EXTRA,mUrlDisplayTextView.getText().toString());
+        outState.putString(SEARCH_RESULTS_RAW_JSON,mSearchResultsTextView.getText().toString());
     }
 }
