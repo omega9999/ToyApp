@@ -10,6 +10,7 @@ import com.example.android.toyapp.activity.ImplicitIntentActivity;
 import com.example.android.toyapp.activity.LifecycleActivity;
 import com.example.android.toyapp.activity.UrlWebActivity;
 import com.example.android.toyapp.activity.recyclerview.RecyclerViewLayoutActivity;
+import com.example.android.toyapp.activity.visualizerpreferences.VisualizerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class ExerciseUtils {
         activities.add(UrlWebActivity.class);
         activities.add(ImplicitIntentActivity.class);
         activities.add(LifecycleActivity.class);
-
+        activities.add(VisualizerActivity.class);
         return activities;
     }
 

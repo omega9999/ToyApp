@@ -16,8 +16,21 @@
 <resources>
     <string name="app_name">Toy App</string>
     <string name="search">Search</string>
-    <string name="error_message">
-        Failed to get results. Please try again.
-    </string>
+    <string name="error_message">Failed to get results. Please try again.</string>
     <string name="action_reset">Reset</string>
+
+    <!-- TODO (4) Add string for Settings -->
+
+    <!-- - - - - - - - - - - - - - - -
+          - Used by Preferences  -
+          - - - - - - - - - - - - - - - -->
+
+    <!-- Value in SharedPreferences for red color option -->
+    <string name="pref_color_red_value" translatable="false">red</string>
+
+    <!-- Value in SharedPreferences for blue color option -->
+    <string name="pref_color_blue_value" translatable="false">blue</string>
+
+    <!-- Value in SharedPreferences for green color option -->
+    <string name="pref_color_green_value" translatable="false">green</string>
 </resources>
