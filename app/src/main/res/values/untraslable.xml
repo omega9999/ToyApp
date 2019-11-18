@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pref_show_bass_key" translatable="false">show_bass</string>
+    <string name="pref_show_mid_key" translatable="false">show_mid</string>
+    <string name="pref_show_treble_key" translatable="false">show_treble</string>
 </resources>
