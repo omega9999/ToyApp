@@ -24,6 +24,8 @@
     <string name="show_bass_on">Shown</string>
     <string name="show_bass_title">Show Bass</string>
 
+    <!-- TODO (1) Add Strings for checkbox preference -->
+
     <!-- - - - - - - - - - - - - - - -
           - Used by Preferences  -
           - - - - - - - - - - - - - - - -->
