@@ -25,5 +25,7 @@
 
     <string name="pref_size_label">Size Multiplier</string>
 
+    <string name="error_size">Please select a number between %1$s and %2$s</string>
+
 
 </resources>

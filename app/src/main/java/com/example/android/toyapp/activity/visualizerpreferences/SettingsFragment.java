@@ -2,6 +2,7 @@ package com.example.android.toyapp.activity.visualizerpreferences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,13 +15,15 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.example.android.toyapp.R;
 
 
-public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
 
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref_visualizer);
+
+
 
         final SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         for (int index = 0; index < getPreferenceScreen().getPreferenceCount(); index++) {
@@ -30,6 +33,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 setPreferenceSummary(preference, value);
             }
         }
+
+        findPreference(getString(R.string.pref_size_key)).setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -44,6 +49,38 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    /**
+     * triggered after data is changed but before saved on SharedPreferences
+     * @param preference
+     * @param newValue
+     * @return true only if save new data on SharedPreferences
+     */
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        final Toast error = Toast.makeText(getContext(), getString(R.string.error_size,"0.1","3"), Toast.LENGTH_SHORT);
+
+        final String sizeKey = getString(R.string.pref_size_key);
+        if (preference.getKey().equals(sizeKey)) {
+            final String stringSize = (String) newValue;
+            try {
+                float size = Float.parseFloat(stringSize);
+                if (size > 3 || size <= 0) {
+                    error.show();
+                    return false;
+                }
+            } catch (NumberFormatException nfe) {
+                error.show();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * triggered after data is changed and saved on SharedPreferences
+     * @param sharedPreferences
+     * @param key
+     */
     @Override
     public void onSharedPreferenceChanged(@NonNull final SharedPreferences sharedPreferences, @NonNull final String key) {
         final Preference preference = findPreference(key);
@@ -68,9 +105,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             preference.setSummary(value);
         }
     }
-
-
-
 
 
 
