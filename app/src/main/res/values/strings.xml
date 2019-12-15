@@ -27,5 +27,6 @@
 
     <string name="error_size">Please select a number between %1$s and %2$s</string>
 
-
+    <string name="show_definition">Show Definition</string>
+    <string name="next_word">Next Word</string>
 </resources>

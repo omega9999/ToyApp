@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="com.example.udacity.droidtermsexample.TERMS_READ" />
 
     <application
         android:allowBackup="false"
@@ -14,12 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".activity.AsynkTaskCursorActivity"></activity>
         <activity android:name=".activity.LifecycleActivity" />
         <activity android:name=".activity.ImplicitIntentActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,9 +47,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.visualizerpreferences.VisualizerActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.visualizerpreferences.SettingsActivity"
+        <activity
+            android:name=".activity.visualizerpreferences.VisualizerActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.visualizerpreferences.SettingsActivity"
             android:label="@string/visualizer_settings"
             android:parentActivityName=".activity.visualizerpreferences.VisualizerActivity">
             <meta-data
