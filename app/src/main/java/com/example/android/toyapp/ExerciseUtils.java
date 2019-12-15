@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 
+import com.example.android.toyapp.activity.AsynkTaskCursorActivity;
 import com.example.android.toyapp.activity.ExplicitIntentActivity;
 import com.example.android.toyapp.activity.ImplicitIntentActivity;
 import com.example.android.toyapp.activity.LifecycleActivity;
@@ -27,6 +28,7 @@ public class ExerciseUtils {
         activities.add(ImplicitIntentActivity.class);
         activities.add(LifecycleActivity.class);
         activities.add(VisualizerActivity.class);
+        activities.add(AsynkTaskCursorActivity.class);
         return activities;
     }
 
