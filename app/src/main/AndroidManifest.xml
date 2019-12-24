@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.AsynkTaskCursorActivity"></activity>
+        <activity android:name=".activity.ToDoListActivity" />
+        <activity android:name=".activity.AsynkTaskCursorActivity" />
         <activity android:name=".activity.LifecycleActivity" />
         <activity android:name=".activity.ImplicitIntentActivity" />
         <activity android:name=".MainActivity">
@@ -58,6 +59,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.visualizerpreferences.VisualizerActivity" />
         </activity>
+
+        <activity
+            android:name="com.example.android.toyapp.activity.todolist.AddTaskActivity"
+            android:label="@string/add_task_activity_name" />
     </application>
 
 </manifest>

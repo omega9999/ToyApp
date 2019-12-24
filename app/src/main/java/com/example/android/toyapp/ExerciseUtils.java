@@ -9,6 +9,7 @@ import com.example.android.toyapp.activity.AsynkTaskCursorActivity;
 import com.example.android.toyapp.activity.ExplicitIntentActivity;
 import com.example.android.toyapp.activity.ImplicitIntentActivity;
 import com.example.android.toyapp.activity.LifecycleActivity;
+import com.example.android.toyapp.activity.ToDoListActivity;
 import com.example.android.toyapp.activity.UrlWebActivity;
 import com.example.android.toyapp.activity.recyclerview.RecyclerViewLayoutActivity;
 import com.example.android.toyapp.activity.visualizerpreferences.VisualizerActivity;
@@ -29,6 +30,7 @@ public class ExerciseUtils {
         activities.add(LifecycleActivity.class);
         activities.add(VisualizerActivity.class);
         activities.add(AsynkTaskCursorActivity.class);
+        activities.add(ToDoListActivity.class);
         return activities;
     }
 
