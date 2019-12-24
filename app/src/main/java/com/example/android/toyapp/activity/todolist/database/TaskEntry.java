@@ -1,5 +1,6 @@
 package com.example.android.toyapp.activity.todolist.database;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -13,6 +14,7 @@ public class TaskEntry {
     private int id;
     private String description;
     private int priority;
+    @ColumnInfo(name = "updated_at")
     private Date updatedAt;
 
     /**
