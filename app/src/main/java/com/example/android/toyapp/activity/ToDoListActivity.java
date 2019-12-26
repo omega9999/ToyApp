@@ -10,19 +10,23 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.toyapp.MainActivity;
+
 import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.AddTaskActivity;
 import com.example.android.toyapp.activity.todolist.TaskAdapter;
+import com.example.android.toyapp.activity.todolist.database.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener {
 
+
     // Constant for logging
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = ToDoListActivity.class.getSimpleName();
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
+
+    private AppDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,19 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
                 startActivity(addTaskIntent);
             }
         });
+
+        this.mDb = AppDatabase.getInstance(getApplicationContext());
+    }
+
+    /**
+     * This method is called after this activity has been paused or restarted.
+     * Often, this is after new data has been inserted through an AddTaskActivity,
+     * so this re-queries the database data for any changes.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.mAdapter.setTasks(this.mDb.taskDao().loadAllTasks());
     }
 
     @Override
