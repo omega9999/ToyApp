@@ -13,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.AddTaskActivity;
+import com.example.android.toyapp.activity.todolist.AppExecutors;
 import com.example.android.toyapp.activity.todolist.TaskAdapter;
 import com.example.android.toyapp.activity.todolist.database.AppDatabase;
+import com.example.android.toyapp.activity.todolist.database.TaskEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener {
 
@@ -92,7 +96,11 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
     @Override
     protected void onResume() {
         super.onResume();
-        this.mAdapter.setTasks(this.mDb.taskDao().loadAllTasks());
+
+        AppExecutors.getInstance().diskIO().execute(()->{
+            final List<TaskEntry> list = mDb.taskDao().loadAllTasks();
+            runOnUiThread(()-> mAdapter.setTasks(list));
+        });
     }
 
     @Override
