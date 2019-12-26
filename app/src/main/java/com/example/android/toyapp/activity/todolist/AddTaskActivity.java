@@ -2,7 +2,6 @@ package com.example.android.toyapp.activity.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -74,12 +73,7 @@ public class AddTaskActivity extends AppCompatActivity {
         mRadioGroup = findViewById(R.id.radioGroup);
 
         mButton = findViewById(R.id.saveButton);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onSaveButtonClicked();
-            }
-        });
+        mButton.setOnClickListener(view -> onSaveButtonClicked());
     }
 
     /**
@@ -101,7 +95,7 @@ public class AddTaskActivity extends AppCompatActivity {
         Date date = new Date();
 
         final TaskEntry taskEntry = new TaskEntry(description, priority, date);
-        AppExecutors.getInstance().diskIO().execute(()->{
+        AppExecutors.getInstance().diskIO().execute(() -> {
             mDb.taskDao().insertTask(taskEntry);
             finish();
         });

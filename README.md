@@ -6,7 +6,8 @@ Rif GIT:
 https://github.com/udacity/ud851-Exercises
 
 Casi risolti:
-    
+1) executor per centralizzare i thread in ToDoListActivity.java
+2) ItemTouchHelper per gestire l'evento swipe in una RecyclerView in ToDoListActivity.java
     
 
 TODO:

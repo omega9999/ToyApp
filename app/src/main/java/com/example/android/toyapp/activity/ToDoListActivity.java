@@ -2,14 +2,13 @@ package com.example.android.toyapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.AddTaskActivity;
@@ -64,8 +63,12 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
 
             // Called when a user swipes left or right on a ViewHolder
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 // Here is where you'll implement swipe to delete
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                    mDb.taskDao().deleteTask(mAdapter.getTasks().get(viewHolder.getAdapterPosition()));
+                    retrieveTasks();
+                });
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -76,13 +79,10 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
          */
         FloatingActionButton fabButton = findViewById(R.id.fab);
 
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(ToDoListActivity.this, AddTaskActivity.class);
-                startActivity(addTaskIntent);
-            }
+        fabButton.setOnClickListener(view -> {
+            // Create a new intent to start an AddTaskActivity
+            Intent addTaskIntent = new Intent(ToDoListActivity.this, AddTaskActivity.class);
+            startActivity(addTaskIntent);
         });
 
         this.mDb = AppDatabase.getInstance(getApplicationContext());
@@ -96,10 +96,13 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
     @Override
     protected void onResume() {
         super.onResume();
+        retrieveTasks();
+    }
 
-        AppExecutors.getInstance().diskIO().execute(()->{
+    private void retrieveTasks() {
+        AppExecutors.getInstance().diskIO().execute(() -> {
             final List<TaskEntry> list = mDb.taskDao().loadAllTasks();
-            runOnUiThread(()-> mAdapter.setTasks(list));
+            runOnUiThread(() -> mAdapter.setTasks(list));
         });
     }
 
