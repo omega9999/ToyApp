@@ -1,5 +1,6 @@
 package com.example.android.toyapp.activity.todolist.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,9 +12,8 @@ import java.util.List;
 
 @Dao
 public interface TaskDao {
-
     @Query("SELECT * FROM task ORDER BY priority")
-    List<TaskEntry> loadAllTasks();
+    LiveData<List<TaskEntry>> loadAllTasks();
 
     @Insert
     void insertTask(TaskEntry taskEntry);

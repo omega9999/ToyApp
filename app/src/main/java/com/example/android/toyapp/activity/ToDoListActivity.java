@@ -2,9 +2,11 @@ package com.example.android.toyapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,7 +69,6 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
                 // Here is where you'll implement swipe to delete
                 AppExecutors.getInstance().diskIO().execute(() -> {
                     mDb.taskDao().deleteTask(mAdapter.getTasks().get(viewHolder.getAdapterPosition()));
-                    retrieveTasks();
                 });
             }
         }).attachToRecyclerView(mRecyclerView);
@@ -86,6 +87,8 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
         });
 
         this.mDb = AppDatabase.getInstance(getApplicationContext());
+
+        retrieveTasks();
     }
 
     /**
@@ -96,13 +99,13 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
     @Override
     protected void onResume() {
         super.onResume();
-        retrieveTasks();
     }
 
     private void retrieveTasks() {
-        AppExecutors.getInstance().diskIO().execute(() -> {
-            final List<TaskEntry> list = mDb.taskDao().loadAllTasks();
-            runOnUiThread(() -> mAdapter.setTasks(list));
+        final LiveData<List<TaskEntry>> tasks = mDb.taskDao().loadAllTasks();
+        tasks.observe(this, taskEntries -> {
+            Log.d(TAG, "Actively retrieving the tasks from the DataBase");
+            mAdapter.setTasks(taskEntries);
         });
     }
 
