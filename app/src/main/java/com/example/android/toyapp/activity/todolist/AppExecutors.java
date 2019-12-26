@@ -1,6 +1,5 @@
 package com.example.android.toyapp.activity.todolist;
 
-
 import android.os.Handler;
 import android.os.Looper;
 
@@ -43,14 +42,29 @@ public class AppExecutors {
         return sInstance;
     }
 
+    /**
+     * only one thread => serialized
+     *
+     * @return {@code Executor}
+     */
     public Executor diskIO() {
         return diskIO;
     }
 
+    /**
+     * UI thread
+     *
+     * @return
+     */
     public Executor mainThread() {
         return mainThread;
     }
 
+    /**
+     * max 3 thread => parallel
+     *
+     * @return
+     */
     public Executor networkIO() {
         return networkIO;
     }

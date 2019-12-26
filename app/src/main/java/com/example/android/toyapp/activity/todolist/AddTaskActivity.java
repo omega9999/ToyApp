@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.toyapp.R;
@@ -55,6 +56,15 @@ public class AddTaskActivity extends AppCompatActivity {
             mButton.setText(R.string.update_button);
             if (mTaskId == DEFAULT_TASK_ID) {
                 // populate the UI
+                mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
+
+                if (mTaskId != DEFAULT_TASK_ID){
+                    AppExecutors.getInstance().diskIO().execute(()->{
+                        final TaskEntry task = mDb.taskDao().loadTaskById(mTaskId);
+                        runOnUiThread(()->populateUI(task));
+                    });
+
+                }
             }
         }
     }
@@ -81,8 +91,12 @@ public class AddTaskActivity extends AppCompatActivity {
      *
      * @param task the taskEntry to populate the UI
      */
-    private void populateUI(TaskEntry task) {
-
+    private void populateUI(@Nullable final TaskEntry task) {
+        if (task == null){
+            return;
+        }
+        mEditText.setText(task.getDescription());
+        setPriorityInViews(task.getPriority());
     }
 
     /**
@@ -94,9 +108,15 @@ public class AddTaskActivity extends AppCompatActivity {
         int priority = getPriorityFromViews();
         Date date = new Date();
 
-        final TaskEntry taskEntry = new TaskEntry(description, priority, date);
         AppExecutors.getInstance().diskIO().execute(() -> {
-            mDb.taskDao().insertTask(taskEntry);
+            if (mTaskId == DEFAULT_TASK_ID) {
+                final TaskEntry taskEntry = new TaskEntry(description, priority, date);
+                mDb.taskDao().insertTask(taskEntry);
+            }
+            else{
+                final TaskEntry taskEntry = new TaskEntry(mTaskId, description, priority, date);
+                mDb.taskDao().updateTask(taskEntry);
+            }
             finish();
         });
     }

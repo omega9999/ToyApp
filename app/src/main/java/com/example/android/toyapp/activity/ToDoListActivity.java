@@ -108,6 +108,8 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
 
     @Override
     public void onItemClickListener(int itemId) {
-        // Launch AddTaskActivity adding the itemId as an extra in the intent
+        Intent addTaskIntent = new Intent(this, AddTaskActivity.class);
+        addTaskIntent.putExtra(AddTaskActivity.EXTRA_TASK_ID, itemId);
+        startActivity(addTaskIntent);
     }
 }
