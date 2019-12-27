@@ -6,7 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,11 +16,9 @@ import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.AddTaskActivity;
 import com.example.android.toyapp.activity.todolist.AppExecutors;
 import com.example.android.toyapp.activity.todolist.TaskAdapter;
+import com.example.android.toyapp.activity.todolist.ToDoListViewModel;
 import com.example.android.toyapp.activity.todolist.database.AppDatabase;
-import com.example.android.toyapp.activity.todolist.database.TaskEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener {
 
@@ -88,7 +86,7 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
 
         this.mDb = AppDatabase.getInstance(getApplicationContext());
 
-        retrieveTasks();
+        setupViewModel();
     }
 
     /**
@@ -101,10 +99,10 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
         super.onResume();
     }
 
-    private void retrieveTasks() {
-        final LiveData<List<TaskEntry>> tasks = mDb.taskDao().loadAllTasks();
-        tasks.observe(this, taskEntries -> {
-            Log.d(TAG, "Actively retrieving the tasks from the DataBase");
+    private void setupViewModel() {
+        final ToDoListViewModel model = ViewModelProviders.of(this).get(ToDoListViewModel.class);
+        model.getTasks().observe(this, taskEntries -> {
+            Log.d(TAG, "Receiving ViewModel update from LiveData");
             mAdapter.setTasks(taskEntries);
         });
     }
