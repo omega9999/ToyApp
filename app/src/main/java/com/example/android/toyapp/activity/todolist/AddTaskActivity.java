@@ -8,6 +8,8 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.database.AppDatabase;
@@ -59,11 +61,15 @@ public class AddTaskActivity extends AppCompatActivity {
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
                 if (mTaskId != DEFAULT_TASK_ID){
-                    AppExecutors.getInstance().diskIO().execute(()->{
-                        final TaskEntry task = mDb.taskDao().loadTaskById(mTaskId);
-                        runOnUiThread(()->populateUI(task));
+                    final LiveData<TaskEntry> task = mDb.taskDao().loadTaskById(mTaskId);
+                    task.observe(this, new Observer<TaskEntry>() {
+                        @Override
+                        public void onChanged(TaskEntry taskEntry) {
+                            // Remove the observer as we do not need it any more
+                            task.removeObserver(this);
+                            populateUI(taskEntry);
+                        }
                     });
-
                 }
             }
         }
