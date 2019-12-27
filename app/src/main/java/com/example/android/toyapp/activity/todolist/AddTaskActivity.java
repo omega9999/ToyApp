@@ -2,6 +2,7 @@ package com.example.android.toyapp.activity.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.database.AppDatabase;
@@ -61,12 +63,12 @@ public class AddTaskActivity extends AppCompatActivity {
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
                 if (mTaskId != DEFAULT_TASK_ID){
-                    final LiveData<TaskEntry> task = mDb.taskDao().loadTaskById(mTaskId);
-                    task.observe(this, new Observer<TaskEntry>() {
+                    final AddTaskViewModel viewModel = ViewModelProviders.of(this, new AddTaskViewModelFactory(this.mDb, mTaskId)).get(AddTaskViewModel.class);
+                    viewModel.getTask().observe(this, new Observer<TaskEntry>() {
                         @Override
-                        public void onChanged(TaskEntry taskEntry) {
-                            // Remove the observer as we do not need it any more
-                            task.removeObserver(this);
+                        public void onChanged(@Nullable TaskEntry taskEntry) {
+                            viewModel.getTask().removeObserver(this);
+                            Log.d(TAG, "Receiving view model update from LiveData");
                             populateUI(taskEntry);
                         }
                     });
