@@ -10,6 +10,9 @@ Casi risolti:
 2) ItemTouchHelper per gestire l'evento swipe in una RecyclerView in ToDoListActivity.java
 3) Observer pattern (https://en.wikipedia.org/wiki/Observer_pattern) e LiveData (https://developer.android.com/topic/libraries/architecture/livedata.html)
 4) ViewModel (https://developer.android.com/topic/libraries/architecture/viewmodel.html)
+5) Lifecycles (https://developer.android.com/topic/libraries/architecture/lifecycle.html) (https://developer.android.com/topic/libraries/architecture/lifecycle.html#use-cases)
+6) Single responsibility principle (https://en.wikipedia.org/wiki/Single_responsibility_principle)
+7) Repository (https://developer.android.com/jetpack/docs/guide#fetch-data)
     
 
 TODO:

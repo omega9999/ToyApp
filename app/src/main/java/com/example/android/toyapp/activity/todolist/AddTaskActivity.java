@@ -2,16 +2,12 @@ package com.example.android.toyapp.activity.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.database.AppDatabase;
@@ -40,8 +36,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private int mTaskId = DEFAULT_TASK_ID;
 
-    // Member variable for the Database
-    private AppDatabase mDb;
+    private ToDoListRepository mRepository;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +44,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         initViews();
 
-        mDb = AppDatabase.getInstance(getApplicationContext());
+        mRepository = ToDoListRepository.getInstance(AppDatabase.getInstance(getApplicationContext()).taskDao(), AppExecutors.getInstance());
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
@@ -63,15 +58,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
                 if (mTaskId != DEFAULT_TASK_ID){
-                    final AddTaskViewModel viewModel = ViewModelProviders.of(this, new AddTaskViewModelFactory(this.mDb, mTaskId)).get(AddTaskViewModel.class);
-                    viewModel.getTask().observe(this, new Observer<TaskEntry>() {
-                        @Override
-                        public void onChanged(@Nullable TaskEntry taskEntry) {
-                            viewModel.getTask().removeObserver(this);
-                            Log.d(TAG, "Receiving view model update from LiveData");
-                            populateUI(taskEntry);
-                        }
-                    });
+                    this.mRepository.getTaskData(this, this.mTaskId, AddTaskActivity.this::populateUI);
                 }
             }
         }
@@ -95,7 +82,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     /**
-     * populateUI would be called to populate the UI when in update mode
+     * callBack would be called to populate the UI when in update mode
      *
      * @param task the taskEntry to populate the UI
      */
@@ -115,18 +102,8 @@ public class AddTaskActivity extends AppCompatActivity {
         String description = mEditText.getText().toString();
         int priority = getPriorityFromViews();
         Date date = new Date();
-
-        AppExecutors.getInstance().diskIO().execute(() -> {
-            if (mTaskId == DEFAULT_TASK_ID) {
-                final TaskEntry taskEntry = new TaskEntry(description, priority, date);
-                mDb.taskDao().insertTask(taskEntry);
-            }
-            else{
-                final TaskEntry taskEntry = new TaskEntry(mTaskId, description, priority, date);
-                mDb.taskDao().updateTask(taskEntry);
-            }
-            finish();
-        });
+        final TaskEntry taskEntry = new TaskEntry(mTaskId, description, priority, date);
+        mRepository.save(this, taskEntry, this::finish);
     }
 
     /**

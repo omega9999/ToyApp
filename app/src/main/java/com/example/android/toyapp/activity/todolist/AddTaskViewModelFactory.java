@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.android.toyapp.activity.todolist.database.AppDatabase;
+import com.example.android.toyapp.activity.todolist.database.TaskDao;
 
 public class AddTaskViewModelFactory extends ViewModelProvider.NewInstanceFactory{
-    public AddTaskViewModelFactory(AppDatabase database, int taskId) {
-        this.mDb = database;
+    public AddTaskViewModelFactory(TaskDao dao, int taskId) {
+        this.mDao = dao;
         this.mTaskId = taskId;
     }
 
@@ -16,9 +16,9 @@ public class AddTaskViewModelFactory extends ViewModelProvider.NewInstanceFactor
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new AddTaskViewModel(mDb, mTaskId);
+        return (T) new AddTaskViewModel(mDao, mTaskId);
     }
 
-    private final AppDatabase mDb;
+    private TaskDao mDao;
     private final int mTaskId;
 }

@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +15,7 @@ import com.example.android.toyapp.R;
 import com.example.android.toyapp.activity.todolist.AddTaskActivity;
 import com.example.android.toyapp.activity.todolist.AppExecutors;
 import com.example.android.toyapp.activity.todolist.TaskAdapter;
-import com.example.android.toyapp.activity.todolist.ToDoListViewModel;
+import com.example.android.toyapp.activity.todolist.ToDoListRepository;
 import com.example.android.toyapp.activity.todolist.database.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -29,12 +28,14 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
 
-    private AppDatabase mDb;
+    private ToDoListRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
+
+        mRepository = ToDoListRepository.getInstance(AppDatabase.getInstance(getApplicationContext()).taskDao(), AppExecutors.getInstance());
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTasks);
@@ -65,9 +66,7 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 // Here is where you'll implement swipe to delete
-                AppExecutors.getInstance().diskIO().execute(() -> {
-                    mDb.taskDao().deleteTask(mAdapter.getTasks().get(viewHolder.getAdapterPosition()));
-                });
+                mRepository.delete(mAdapter.getTasks().get(viewHolder.getAdapterPosition()), () -> Log.v(TAG, "Delete callback"));
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -83,9 +82,6 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
             Intent addTaskIntent = new Intent(ToDoListActivity.this, AddTaskActivity.class);
             startActivity(addTaskIntent);
         });
-
-        this.mDb = AppDatabase.getInstance(getApplicationContext());
-
         setupViewModel();
     }
 
@@ -100,11 +96,7 @@ public class ToDoListActivity extends AppCompatActivity implements TaskAdapter.I
     }
 
     private void setupViewModel() {
-        final ToDoListViewModel model = ViewModelProviders.of(this).get(ToDoListViewModel.class);
-        model.getTasks().observe(this, taskEntries -> {
-            Log.d(TAG, "Receiving ViewModel update from LiveData");
-            mAdapter.setTasks(taskEntries);
-        });
+        mRepository.getTasksData(this, tasks -> mAdapter.setTasks(tasks));
     }
 
     @Override
