@@ -6,6 +6,7 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 
 import com.example.android.toyapp.activity.AsynkTaskCursorActivity;
+import com.example.android.toyapp.activity.CustomRadioButtonActivity;
 import com.example.android.toyapp.activity.ExplicitIntentActivity;
 import com.example.android.toyapp.activity.ImplicitIntentActivity;
 import com.example.android.toyapp.activity.LifecycleActivity;
@@ -23,6 +24,7 @@ public class ExerciseUtils {
     @NonNull
     public static List<Class<? extends Activity>> getIntents(){
         final List<Class<? extends Activity>> activities = new ArrayList<>();
+        activities.add(CustomRadioButtonActivity.class);
         activities.add(ExplicitIntentActivity.class);
         activities.add(RecyclerViewLayoutActivity.class);
         activities.add(UrlWebActivity.class);
