@@ -37,7 +37,7 @@
             android:drawableStart="@drawable/radio_button_1_image"
             android:drawablePadding="4dp"
             android:textColor="@color/radio_flat_text_selector_1"
-            android:text="Wi Fi"/>
+            android:text="Wi Fi 1"/>
 
         <RadioButton
             android:id="@+id/radio2"
@@ -50,16 +50,18 @@
             android:gravity="center"
             android:padding="8dp" />
 
-        <RadioButton
+        <TextView
             android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/radio_button_3"
+            android:background="@drawable/radio_button_1_background"
             android:button="@android:color/transparent"
-            android:clickable="true"
-            android:focusable="true"
             android:gravity="center"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:drawableStart="@drawable/radio_button_1_image"
+            android:drawablePadding="4dp"
+            android:textColor="@color/radio_flat_text_selector_1"
+            android:text="Wi Fi 2"/>
 
         <RadioButton
             android:id="@+id/radio4"
