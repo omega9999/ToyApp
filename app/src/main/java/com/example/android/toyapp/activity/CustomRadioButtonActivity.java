@@ -50,8 +50,8 @@ public class CustomRadioButtonActivity extends AppCompatActivity {
         radioButton.setClickable(true);
         radioButton.setFocusable(true);
         radioButton.getBackground().setColorFilter(cf);
-        radioButton.setOnClickListener(v -> Toast.makeText(CustomRadioButtonActivity.this, "Click on radio button disabled", Toast.LENGTH_SHORT).show());
-        radioButton.setOnTouchListener((v,t) -> {Toast.makeText(CustomRadioButtonActivity.this, "Click on radio button disabled", Toast.LENGTH_SHORT).show();return true;});
+        radioButton.setOnClickListener(v -> Toast.makeText(CustomRadioButtonActivity.this, "OnClickListener: Click on radio button disabled", Toast.LENGTH_SHORT).show());
+        radioButton.setOnTouchListener((v,t) -> {Toast.makeText(CustomRadioButtonActivity.this, "OnTouchListener: Click on radio button disabled", Toast.LENGTH_SHORT).show();radioButton.performClick();return true;});
     }
 
     private void hidden(@NonNull final RadioButton radioButton) {
