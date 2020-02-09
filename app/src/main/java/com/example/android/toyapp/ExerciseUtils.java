@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.example.android.toyapp.activity.AsynkTaskCursorActivity;
 import com.example.android.toyapp.activity.CustomRadioButtonActivity;
 import com.example.android.toyapp.activity.ExplicitIntentActivity;
+import com.example.android.toyapp.activity.HydrationReminderActivity;
 import com.example.android.toyapp.activity.ImplicitIntentActivity;
 import com.example.android.toyapp.activity.LifecycleActivity;
 import com.example.android.toyapp.activity.ToDoListActivity;
@@ -33,6 +34,7 @@ public class ExerciseUtils {
         activities.add(VisualizerActivity.class);
         activities.add(AsynkTaskCursorActivity.class);
         activities.add(ToDoListActivity.class);
+        activities.add(HydrationReminderActivity.class);
         return activities;
     }
 

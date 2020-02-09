@@ -63,6 +63,12 @@
         <activity
             android:name=".activity.todolist.AddTaskActivity"
             android:label="@string/add_task_activity_name" />
+
+        <activity
+            android:name=".activity.HydrationReminderActivity" />
+
+        <!-- TODO (14) Declare WaterReminderIntentService in the Manifest and set the exported  attribute to false-->
+
     </application>
 
 </manifest>
