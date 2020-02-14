@@ -5,13 +5,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CustomRadioButtonActivity">
 
     <RadioGroup
         android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -26,22 +27,22 @@
 
         <RadioButton
             android:id="@+id/radio1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/radio_button_1_background"
             android:button="@android:color/transparent"
             android:clickable="true"
+            android:drawableStart="@drawable/radio_button_1_image"
+            android:drawablePadding="4dp"
             android:focusable="true"
             android:gravity="center"
             android:padding="8dp"
-            android:drawableStart="@drawable/radio_button_1_image"
-            android:drawablePadding="4dp"
-            android:textColor="@color/radio_flat_text_selector_1"
-            android:text="Wi Fi 1"/>
+            android:text="Wi Fi 1"
+            android:textColor="@color/radio_flat_text_selector_1" />
 
         <RadioButton
             android:id="@+id/radio2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/radio_button_2"
             android:button="@android:color/transparent"
@@ -50,22 +51,23 @@
             android:gravity="center"
             android:padding="8dp" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/radio3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/radio_button_1_background"
             android:button="@android:color/transparent"
-            android:gravity="center"
-            android:padding="8dp"
             android:drawableStart="@drawable/radio_button_1_image"
             android:drawablePadding="4dp"
-            android:textColor="@color/radio_flat_text_selector_1"
-            android:text="Wi Fi 2"/>
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Wi Fi 2"
+            android:textColor="@color/radio_flat_text_selector_1" />
+
 
         <RadioButton
             android:id="@+id/radio4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/radio_button_4"
             android:button="@android:color/transparent"
@@ -121,5 +123,50 @@
             android:textColor="@color/radio_flat_text_selector" />
 
     </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="false"
+        android:enabled="false"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:text="TextView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.51"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,21 @@
 package com.example.android.toyapp.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.ColorFilter;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.android.toyapp.R;
 
@@ -27,35 +31,43 @@ public class CustomRadioButtonActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onResume() {
         super.onResume();
 
-        final List<View> list = new ArrayList<>();
+        final List<RadioButton> list = new ArrayList<>();
         list.add(findViewById(R.id.radio1));
         list.add(findViewById(R.id.radio2));
         list.add(findViewById(R.id.radio3));
         list.add(findViewById(R.id.radio4));
 
-        list.get(2).setOnClickListener(v -> Toast.makeText(CustomRadioButtonActivity.this, "OnClickListener: Click on radio button disabled", Toast.LENGTH_SHORT).show());
+        View view = findViewById(R.id.textView2);
+        view.setOnTouchListener((v, event) -> {
+            // MotionEvent.ACTION_DOWN
+            Toast.makeText(this, "touch consumed : " + event.getAction(), Toast.LENGTH_SHORT).show();
+            return true;
+        });
+
+        //list.get(2).setOnClickListener(v -> Toast.makeText(CustomRadioButtonActivity.this, "OnClickListener: Click on radio button disabled", Toast.LENGTH_SHORT).show());
         //disable(list.get(2));
         hidden(list.get(1));
     }
 
-    /*
+
     //TODO implement better: greyscale and message when clicked, but do not change state
+    @SuppressLint("ClickableViewAccessibility")
     private void disable(@NonNull final RadioButton radioButton) {
         final ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);  //0 means grayscale
         final ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
         radioButton.setEnabled(false);
-        radioButton.getBackground().setColorFilter(cf);
+        //radioButton.getBackground().setColorFilter(cf);
         //radioButton.setOnClickListener(v -> Toast.makeText(CustomRadioButtonActivity.this, "OnClickListener: Click on radio button disabled", Toast.LENGTH_SHORT).show());
 
-        radioButton.setOnTouchListener((v,t) -> {Toast.makeText(CustomRadioButtonActivity.this, "OnTouchListener: Click on radio button disabled", Toast.LENGTH_SHORT).show();radioButton.performClick();return true;});
+
     }
 
-     */
 
     private void hidden(@NonNull final View radioButton) {
         radioButton.setVisibility(View.GONE);
