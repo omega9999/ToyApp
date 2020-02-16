@@ -55,7 +55,7 @@ public class CustomRadioButtonActivity extends AppCompatActivity {
     }
 
 
-    //TODO implement better: greyscale and message when clicked, but do not change state
+    //FIXME implement better: greyscale and message when clicked, but do not change state
     @SuppressLint("ClickableViewAccessibility")
     private void disable(@NonNull final RadioButton radioButton) {
         final ColorMatrix matrix = new ColorMatrix();

@@ -67,8 +67,8 @@
         <activity
             android:name=".activity.HydrationReminderActivity" />
 
-        <!-- TODO (14) Declare WaterReminderIntentService in the Manifest and set the exported  attribute to false-->
-
+        <service android:name=".activity.background.sync.WaterReminderIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>
