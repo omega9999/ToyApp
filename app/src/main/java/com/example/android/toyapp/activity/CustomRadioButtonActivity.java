@@ -43,10 +43,9 @@ public class CustomRadioButtonActivity extends AppCompatActivity {
         list.add(findViewById(R.id.radio4));
 
         View view = findViewById(R.id.textView2);
-        view.setOnTouchListener((v, event) -> {
+        view.setOnClickListener(v -> {
             // MotionEvent.ACTION_DOWN
-            Toast.makeText(this, "touch consumed : " + event.getAction(), Toast.LENGTH_SHORT).show();
-            return true;
+            Toast.makeText(this, "click consumed", Toast.LENGTH_SHORT).show();
         });
 
         //list.get(2).setOnClickListener(v -> Toast.makeText(CustomRadioButtonActivity.this, "OnClickListener: Click on radio button disabled", Toast.LENGTH_SHORT).show());
