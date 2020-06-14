@@ -9,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.toyapp.Log;
 import com.example.android.toyapp.R;
 
 public class RecyclerViewLayoutActivity extends AppCompatActivity implements GreenAdapter.ListItemClickListener {
+    private static final String TAG = RecyclerViewLayoutActivity.class.getSimpleName();
     private static final int NUM_LIST_ITEMS = 100;
 
     /*
@@ -102,6 +104,7 @@ public class RecyclerViewLayoutActivity extends AppCompatActivity implements Gre
          */
         String toastMessage = "Item #" + index + " clicked.";
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+
 
         mToast.show();
     }

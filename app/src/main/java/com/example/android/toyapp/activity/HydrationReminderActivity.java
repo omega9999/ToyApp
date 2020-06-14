@@ -82,6 +82,8 @@ public class HydrationReminderActivity extends AppCompatActivity implements     
         prefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    // TODO (15) Create a method called testNotification that triggers NotificationUtils' remindUserBecauseCharging
+
     /**
      * This is a listener that will update the UI when the water count or charging reminder counts
      * change

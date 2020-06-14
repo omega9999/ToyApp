@@ -13,6 +13,8 @@ Casi risolti:
 5) Lifecycles (https://developer.android.com/topic/libraries/architecture/lifecycle.html) (https://developer.android.com/topic/libraries/architecture/lifecycle.html#use-cases)
 6) Single responsibility principle (https://en.wikipedia.org/wiki/Single_responsibility_principle)
 7) Repository (https://developer.android.com/jetpack/docs/guide#fetch-data)
+8) vedere il numero di riga della chiamata con relativo stack trace
+9) handler che dicono se hanno callback in esecuzione
     
 
 TODO:

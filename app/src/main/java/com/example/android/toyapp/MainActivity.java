@@ -15,10 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private List<Class<? extends Activity>> mActivities;
 
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int clickedPosition = getAdapterPosition();
                 MainActivity.this.onListItemClick(clickedPosition);
+                Log.logStacktrace(TAG,"ActivityViewHolder.onClick");
             }
 
         }
